@@ -26,7 +26,7 @@ void TrainingData::readImageDataVectorFromFile(std::string& file_name) {
 
     while (file.get(current_char)) {
 
-        //std::cout << current_char << "|";
+        //std::cout << current_char;
 
         if (current_char != '\n') {
             if (current_char == '#' || current_char == '+') {
@@ -69,7 +69,7 @@ void TrainingData::readImageLabelFromFile(std::string& file_name) {
 
         if (file.peek() != ' '){
             file >> current_int;
-            std::cout << current_int << std::endl;
+            //std::cout << current_int << std::endl;
             image_labels_.push_back(current_int);
         }
     }

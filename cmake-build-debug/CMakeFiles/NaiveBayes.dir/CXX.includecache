@@ -13,6 +13,8 @@ image_data.h
 /Users/ashank/CLionProjects/NaiveBayes/src/image_data.h
 training_data.h
 /Users/ashank/CLionProjects/NaiveBayes/src/training_data.h
+model.h
+/Users/ashank/CLionProjects/NaiveBayes/src/model.h
 
 /Users/ashank/CLionProjects/NaiveBayes/src/image_data.cpp
 fstream
@@ -25,10 +27,18 @@ vector
 -
 
 /Users/ashank/CLionProjects/NaiveBayes/src/model.cpp
+map
+-
 model.h
 /Users/ashank/CLionProjects/NaiveBayes/src/model.h
 
 /Users/ashank/CLionProjects/NaiveBayes/src/model.h
+vector
+-
+map
+-
+training_data.h
+/Users/ashank/CLionProjects/NaiveBayes/src/training_data.h
 
 /Users/ashank/CLionProjects/NaiveBayes/src/training_data.cpp
 iostream

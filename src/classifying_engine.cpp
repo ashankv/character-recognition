@@ -1,6 +1,7 @@
 #include <iostream>
 #include "image_data.h"
 #include "training_data.h"
+#include "model.h"
 
 
 int main() {
@@ -15,8 +16,12 @@ int main() {
     std::vector<ImageData> image_data_vector = training_data.getImageDataVector();
     std::vector<int> image_data_labels = training_data.getImageLabelVector();
 
-    std::cout << image_data_vector.size() << std::endl;
-    std::cout << image_data_labels.size() << std::endl;
+    Model model;
+    model.calculateProbabilities(training_data);
+
+    std::cout << model.getSpecificProbability(0, 3, 0);
+    //std::cout << image_data_vector.size() << std::endl;
+    //std::cout << image_data_labels.size() << std::endl;
 
     return 0;
 }
