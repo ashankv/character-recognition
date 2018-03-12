@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/ashank/CLionProjects/NaiveBayes/src/classifying_engine.cpp
+iostream
+-
+image_data.h
+/Users/ashank/CLionProjects/NaiveBayes/src/image_data.h
+training_data.h
+/Users/ashank/CLionProjects/NaiveBayes/src/training_data.h
+
+/Users/ashank/CLionProjects/NaiveBayes/src/image_data.cpp
+fstream
+-
+image_data.h
+/Users/ashank/CLionProjects/NaiveBayes/src/image_data.h
+
+/Users/ashank/CLionProjects/NaiveBayes/src/image_data.h
+vector
+-
+
+/Users/ashank/CLionProjects/NaiveBayes/src/model.cpp
+model.h
+/Users/ashank/CLionProjects/NaiveBayes/src/model.h
+
+/Users/ashank/CLionProjects/NaiveBayes/src/model.h
+
+/Users/ashank/CLionProjects/NaiveBayes/src/training_data.cpp
+iostream
+-
+fstream
+-
+training_data.h
+/Users/ashank/CLionProjects/NaiveBayes/src/training_data.h
+
+/Users/ashank/CLionProjects/NaiveBayes/src/training_data.h
+fstream
+-
+image_data.h
+/Users/ashank/CLionProjects/NaiveBayes/src/image_data.h
+
