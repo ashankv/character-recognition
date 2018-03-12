@@ -204,6 +204,33 @@ src/model.cpp.s:
 	$(MAKE) -f CMakeFiles/NaiveBayes.dir/build.make CMakeFiles/NaiveBayes.dir/src/model.cpp.s
 .PHONY : src/model.cpp.s
 
+src/test_data.o: src/test_data.cpp.o
+
+.PHONY : src/test_data.o
+
+# target to build an object file
+src/test_data.cpp.o:
+	$(MAKE) -f CMakeFiles/NaiveBayes.dir/build.make CMakeFiles/NaiveBayes.dir/src/test_data.cpp.o
+.PHONY : src/test_data.cpp.o
+
+src/test_data.i: src/test_data.cpp.i
+
+.PHONY : src/test_data.i
+
+# target to preprocess a source file
+src/test_data.cpp.i:
+	$(MAKE) -f CMakeFiles/NaiveBayes.dir/build.make CMakeFiles/NaiveBayes.dir/src/test_data.cpp.i
+.PHONY : src/test_data.cpp.i
+
+src/test_data.s: src/test_data.cpp.s
+
+.PHONY : src/test_data.s
+
+# target to generate assembly for a file
+src/test_data.cpp.s:
+	$(MAKE) -f CMakeFiles/NaiveBayes.dir/build.make CMakeFiles/NaiveBayes.dir/src/test_data.cpp.s
+.PHONY : src/test_data.cpp.s
+
 src/training_data.o: src/training_data.cpp.o
 
 .PHONY : src/training_data.o
@@ -249,6 +276,9 @@ help:
 	@echo "... src/model.o"
 	@echo "... src/model.i"
 	@echo "... src/model.s"
+	@echo "... src/test_data.o"
+	@echo "... src/test_data.i"
+	@echo "... src/test_data.s"
 	@echo "... src/training_data.o"
 	@echo "... src/training_data.i"
 	@echo "... src/training_data.s"

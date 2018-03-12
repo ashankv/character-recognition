@@ -5,7 +5,9 @@
 #ifndef NAIVEBAYES_TRAINING_DATA_H
 #define NAIVEBAYES_TRAINING_DATA_H
 
+#include <iostream>
 #include <fstream>
+#include <vector>
 #include "image_data.h"
 
 const int NUMBER_OF_PIXELS = 784;
@@ -19,10 +21,10 @@ class TrainingData {
     std::vector<int> image_labels_;
 
 public:
-    void readImageDataVectorFromFile(std::string& file_name);
-    void readImageLabelFromFile(std::string& file_name);
-    std::vector<ImageData>& getImageDataVector();
-    std::vector<int>& getImageLabelVector();
+    void readTrainingDataFromFileToVector(std::string& file_name);
+    void readTrainingLabelsFromFileToVector(std::string& file_name);
+    std::vector<ImageData>& getTrainingImageDataVector();
+    std::vector<int>& getTrainingImageLabelVector();
 
 };
 

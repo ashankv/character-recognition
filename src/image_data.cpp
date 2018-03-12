@@ -4,6 +4,7 @@
 
 #include <fstream>
 #include "image_data.h"
+#include <math.h>
 
 /** Adds a boolean pixel to the boolean vector.
  *
@@ -20,5 +21,24 @@ void ImageData::addToPixelVector(bool pixel) {
 std::vector<bool>& ImageData::getPixels() {
     return pixels_;
 }
+
+/*void ImageData::calculatePosteriorProbabilitiesUsingModel(Model* model) {
+
+    for (int i = 0; i < 10; i++) {
+        double probability = 0.0;
+
+        for (int j = 0; j < 784; j++) {
+            bool is_foreground = pixels_[j];
+            if (is_foreground) {
+                probability += log10(model.getSpecificProbability(j, i, 1));
+            } else {
+                probability += log10(model.getSpecificProbability(j, i, 0));
+            }
+        }
+    }
+
+
+    //return std::map<int, double>();
+} */
 
 

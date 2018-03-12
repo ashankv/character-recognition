@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/NaiveBayes.dir/src/image_data.cpp.o"
   "CMakeFiles/NaiveBayes.dir/src/model.cpp.o"
   "CMakeFiles/NaiveBayes.dir/src/training_data.cpp.o"
+  "CMakeFiles/NaiveBayes.dir/src/test_data.cpp.o"
   "NaiveBayes.pdb"
   "NaiveBayes"
 )

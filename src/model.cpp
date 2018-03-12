@@ -5,18 +5,18 @@
 #include <map>
 #include "model.h"
 
+
 /** Calculates and populates the 3 dimensional probability array of the model.
  *
  * @param training_data the data to calculate the probability from.
  */
 void Model::calculateProbabilities(TrainingData& training_data) {
 
-    std::map<int, int> label_frequencies;
 
-    calculateClassFrequency(training_data, label_frequencies);
+    calculateClassFrequencyAndProbabilities(training_data);
 
-    std::vector<ImageData> image_data = training_data.getImageDataVector();
-    std::vector<int> image_labels = training_data.getImageLabelVector();
+    std::vector<ImageData> image_data = training_data.getTrainingImageDataVector();
+    std::vector<int> image_labels = training_data.getTrainingImageLabelVector();
 
     for (int i = 0; i < NUMBER_OF_PIXELS; i++) {
 
@@ -50,22 +50,25 @@ void Model::calculateProbabilities(TrainingData& training_data) {
             }
         }
     }
-
-
 }
 
-/** Calculates and populates a map of class to frequency.
+/** Calculates and populates a map of class to frequency and a map of class to probability for the training data.
  *
  * @param training_data the data to calculate class frequency from.
  * @param label_frequencies the map to populate.
  */
-void Model::calculateClassFrequency(TrainingData& training_data, std::map<int, int>& label_frequencies) {
+void Model::calculateClassFrequencyAndProbabilities(TrainingData& training_data) {
 
-    std::vector<int> training_labels = training_data.getImageLabelVector();
+    std::vector<int> training_labels = training_data.getTrainingImageLabelVector();
 
     for (int i = 0; i < training_labels.size(); i++) {
         label_frequencies[training_labels.at(i)] += 1;
     }
+
+    for (auto entry : label_frequencies) {
+        class_probabilities[entry.first] = (((double) entry.second) / (double) training_labels.size());
+    }
+
 }
 
 /** Gets the specific probability at a given dimension.
@@ -78,5 +81,8 @@ void Model::calculateClassFrequency(TrainingData& training_data, std::map<int, i
 double Model::getSpecificProbability(int i, int j, int k) {
     return probabilities_[i][j][k];
 }
+
+
+
 
 

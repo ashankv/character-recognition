@@ -10,11 +10,11 @@ int main() {
     std::string file_name = "../data/trainingimages";
     std::string file_name_2 = "../data/traininglabels";
 
-    training_data.readImageDataVectorFromFile(file_name);
-    training_data.readImageLabelFromFile(file_name_2);
+    training_data.readTrainingDataFromFileToVector(file_name);
+    training_data.readTrainingLabelsFromFileToVector(file_name_2);
 
-    std::vector<ImageData> image_data_vector = training_data.getImageDataVector();
-    std::vector<int> image_data_labels = training_data.getImageLabelVector();
+    std::vector<ImageData> image_data_vector = training_data.getTrainingImageDataVector();
+    std::vector<int> image_data_labels = training_data.getTrainingImageLabelVector();
 
     Model model;
     model.calculateProbabilities(training_data);

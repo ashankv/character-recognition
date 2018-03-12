@@ -100,6 +100,12 @@
 		<Unit filename="/Users/ashank/CLionProjects/NaiveBayes/src/model.h">
 			<Option target="NaiveBayes"/>
 		</Unit>
+		<Unit filename="/Users/ashank/CLionProjects/NaiveBayes/src/test_data.cpp">
+			<Option target="NaiveBayes"/>
+		</Unit>
+		<Unit filename="/Users/ashank/CLionProjects/NaiveBayes/src/test_data.h">
+			<Option target="NaiveBayes"/>
+		</Unit>
 		<Unit filename="/Users/ashank/CLionProjects/NaiveBayes/src/training_data.cpp">
 			<Option target="NaiveBayes"/>
 		</Unit>

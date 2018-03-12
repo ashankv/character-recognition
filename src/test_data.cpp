@@ -1,17 +1,15 @@
 //
-// Created by Ashank Verma on 3/11/18.
+// Created by Ashank Verma on 3/12/18.
 //
-
-#include <iostream>
 #include <fstream>
+#include "test_data.h"
 #include "training_data.h"
 
-/** Reads image data from file and saves in vector.
+/** Reads test data from file and converts to a vector.
  *
- * @param file_name the file name to be read from.
+ * @param file_name the file name to read from.
  */
-void TrainingData::readTrainingDataFromFileToVector(std::string& file_name) {
-
+void TestData::readTestDataFromFileToVector(std::string& file_name) {
     std::ifstream file;
 
     file.open(file_name, std::ifstream::in);
@@ -52,11 +50,11 @@ void TrainingData::readTrainingDataFromFileToVector(std::string& file_name) {
     file.close();
 }
 
-/** Reads image label data from file.
+/** Reads the test labels from the file and converts to a vector.
  *
- * @param file_name the file name to be read from.
+ * @param file_name the file name to read from.
  */
-void TrainingData::readTrainingLabelsFromFileToVector(std::string& file_name) {
+void TestData::readTestLabelsFromFileToVector(std::string& file_name) {
 
     std::ifstream file(file_name);
 
@@ -75,22 +73,18 @@ void TrainingData::readTrainingLabelsFromFileToVector(std::string& file_name) {
     }
 }
 
-/** Retrieves the image data vector.
+/** Retrieves the Image Data vector of test data.
  *
- * @return the image data vector to retrieve.
+ * @return the Image Data vector of test data.
  */
-std::vector<ImageData>& TrainingData::getTrainingImageDataVector() {
+std::vector<ImageData>& TestData::getTestImageDataVector() {
     return image_data_vector_;
 }
 
-/** Retrieves the image label vector.
+/** Retrieves the test image labels from the data.
  *
- * @return the image label vector to retrieve.
+ * @return the test image labels from the data.
  */
-std::vector<int>& TrainingData::getTrainingImageLabelVector() {
+std::vector<int>& TestData::getTestImageLabelVector() {
     return image_labels_;
 }
-
-
-
-
