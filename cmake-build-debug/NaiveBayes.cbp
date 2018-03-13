@@ -37,6 +37,50 @@
 					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/ashank/CLionProjects/NaiveBayes/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="Test">
+				<Option output="/Users/ashank/CLionProjects/NaiveBayes/cmake-build-debug/Test" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/ashank/CLionProjects/NaiveBayes/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../lib/clang/8.1.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/ashank/CLionProjects/NaiveBayes/cmake-build-debug/Makefile&quot;  VERBOSE=1 Test"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/ashank/CLionProjects/NaiveBayes/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/ashank/CLionProjects/NaiveBayes/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/ashank/CLionProjects/NaiveBayes/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Test/fast">
+				<Option output="/Users/ashank/CLionProjects/NaiveBayes/cmake-build-debug/Test" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/ashank/CLionProjects/NaiveBayes/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../lib/clang/8.1.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/ashank/CLionProjects/NaiveBayes/cmake-build-debug/Makefile&quot;  VERBOSE=1 Test/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/ashank/CLionProjects/NaiveBayes/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/ashank/CLionProjects/NaiveBayes/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/ashank/CLionProjects/NaiveBayes/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 			<Target title="NaiveBayes">
 				<Option output="/Users/ashank/CLionProjects/NaiveBayes/cmake-build-debug/NaiveBayes" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/Users/ashank/CLionProjects/NaiveBayes/cmake-build-debug"/>
@@ -86,31 +130,46 @@
 			<Option target="NaiveBayes"/>
 		</Unit>
 		<Unit filename="/Users/ashank/CLionProjects/NaiveBayes/src/classifying_engine.h">
+			<Option target="Test"/>
 			<Option target="NaiveBayes"/>
 		</Unit>
 		<Unit filename="/Users/ashank/CLionProjects/NaiveBayes/src/image_data.cpp">
+			<Option target="Test"/>
 			<Option target="NaiveBayes"/>
 		</Unit>
 		<Unit filename="/Users/ashank/CLionProjects/NaiveBayes/src/image_data.h">
+			<Option target="Test"/>
 			<Option target="NaiveBayes"/>
 		</Unit>
 		<Unit filename="/Users/ashank/CLionProjects/NaiveBayes/src/model.cpp">
+			<Option target="Test"/>
 			<Option target="NaiveBayes"/>
 		</Unit>
 		<Unit filename="/Users/ashank/CLionProjects/NaiveBayes/src/model.h">
+			<Option target="Test"/>
 			<Option target="NaiveBayes"/>
 		</Unit>
 		<Unit filename="/Users/ashank/CLionProjects/NaiveBayes/src/test_data.cpp">
+			<Option target="Test"/>
 			<Option target="NaiveBayes"/>
 		</Unit>
 		<Unit filename="/Users/ashank/CLionProjects/NaiveBayes/src/test_data.h">
+			<Option target="Test"/>
 			<Option target="NaiveBayes"/>
 		</Unit>
 		<Unit filename="/Users/ashank/CLionProjects/NaiveBayes/src/training_data.cpp">
+			<Option target="Test"/>
 			<Option target="NaiveBayes"/>
 		</Unit>
 		<Unit filename="/Users/ashank/CLionProjects/NaiveBayes/src/training_data.h">
+			<Option target="Test"/>
 			<Option target="NaiveBayes"/>
+		</Unit>
+		<Unit filename="/Users/ashank/CLionProjects/NaiveBayes/test/model_test.cpp">
+			<Option target="Test"/>
+		</Unit>
+		<Unit filename="/Users/ashank/CLionProjects/NaiveBayes/test/model_test.h">
+			<Option target="Test"/>
 		</Unit>
 		<Unit filename="/Users/ashank/CLionProjects/NaiveBayes/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>

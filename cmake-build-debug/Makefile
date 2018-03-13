@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named Test
+
+# Build rule for target.
+Test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Test
+.PHONY : Test
+
+# fast build rule for target.
+Test/fast:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/build
+.PHONY : Test/fast
+
+#=============================================================================
 # Target rules for targets named NaiveBayes
 
 # Build rule for target.
@@ -156,6 +169,7 @@ src/image_data.o: src/image_data.cpp.o
 
 # target to build an object file
 src/image_data.cpp.o:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/image_data.cpp.o
 	$(MAKE) -f CMakeFiles/NaiveBayes.dir/build.make CMakeFiles/NaiveBayes.dir/src/image_data.cpp.o
 .PHONY : src/image_data.cpp.o
 
@@ -165,6 +179,7 @@ src/image_data.i: src/image_data.cpp.i
 
 # target to preprocess a source file
 src/image_data.cpp.i:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/image_data.cpp.i
 	$(MAKE) -f CMakeFiles/NaiveBayes.dir/build.make CMakeFiles/NaiveBayes.dir/src/image_data.cpp.i
 .PHONY : src/image_data.cpp.i
 
@@ -174,6 +189,7 @@ src/image_data.s: src/image_data.cpp.s
 
 # target to generate assembly for a file
 src/image_data.cpp.s:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/image_data.cpp.s
 	$(MAKE) -f CMakeFiles/NaiveBayes.dir/build.make CMakeFiles/NaiveBayes.dir/src/image_data.cpp.s
 .PHONY : src/image_data.cpp.s
 
@@ -183,6 +199,7 @@ src/model.o: src/model.cpp.o
 
 # target to build an object file
 src/model.cpp.o:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/model.cpp.o
 	$(MAKE) -f CMakeFiles/NaiveBayes.dir/build.make CMakeFiles/NaiveBayes.dir/src/model.cpp.o
 .PHONY : src/model.cpp.o
 
@@ -192,6 +209,7 @@ src/model.i: src/model.cpp.i
 
 # target to preprocess a source file
 src/model.cpp.i:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/model.cpp.i
 	$(MAKE) -f CMakeFiles/NaiveBayes.dir/build.make CMakeFiles/NaiveBayes.dir/src/model.cpp.i
 .PHONY : src/model.cpp.i
 
@@ -201,6 +219,7 @@ src/model.s: src/model.cpp.s
 
 # target to generate assembly for a file
 src/model.cpp.s:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/model.cpp.s
 	$(MAKE) -f CMakeFiles/NaiveBayes.dir/build.make CMakeFiles/NaiveBayes.dir/src/model.cpp.s
 .PHONY : src/model.cpp.s
 
@@ -210,6 +229,7 @@ src/test_data.o: src/test_data.cpp.o
 
 # target to build an object file
 src/test_data.cpp.o:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/test_data.cpp.o
 	$(MAKE) -f CMakeFiles/NaiveBayes.dir/build.make CMakeFiles/NaiveBayes.dir/src/test_data.cpp.o
 .PHONY : src/test_data.cpp.o
 
@@ -219,6 +239,7 @@ src/test_data.i: src/test_data.cpp.i
 
 # target to preprocess a source file
 src/test_data.cpp.i:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/test_data.cpp.i
 	$(MAKE) -f CMakeFiles/NaiveBayes.dir/build.make CMakeFiles/NaiveBayes.dir/src/test_data.cpp.i
 .PHONY : src/test_data.cpp.i
 
@@ -228,6 +249,7 @@ src/test_data.s: src/test_data.cpp.s
 
 # target to generate assembly for a file
 src/test_data.cpp.s:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/test_data.cpp.s
 	$(MAKE) -f CMakeFiles/NaiveBayes.dir/build.make CMakeFiles/NaiveBayes.dir/src/test_data.cpp.s
 .PHONY : src/test_data.cpp.s
 
@@ -237,6 +259,7 @@ src/training_data.o: src/training_data.cpp.o
 
 # target to build an object file
 src/training_data.cpp.o:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/training_data.cpp.o
 	$(MAKE) -f CMakeFiles/NaiveBayes.dir/build.make CMakeFiles/NaiveBayes.dir/src/training_data.cpp.o
 .PHONY : src/training_data.cpp.o
 
@@ -246,6 +269,7 @@ src/training_data.i: src/training_data.cpp.i
 
 # target to preprocess a source file
 src/training_data.cpp.i:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/training_data.cpp.i
 	$(MAKE) -f CMakeFiles/NaiveBayes.dir/build.make CMakeFiles/NaiveBayes.dir/src/training_data.cpp.i
 .PHONY : src/training_data.cpp.i
 
@@ -255,8 +279,36 @@ src/training_data.s: src/training_data.cpp.s
 
 # target to generate assembly for a file
 src/training_data.cpp.s:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/training_data.cpp.s
 	$(MAKE) -f CMakeFiles/NaiveBayes.dir/build.make CMakeFiles/NaiveBayes.dir/src/training_data.cpp.s
 .PHONY : src/training_data.cpp.s
+
+test/model_test.o: test/model_test.cpp.o
+
+.PHONY : test/model_test.o
+
+# target to build an object file
+test/model_test.cpp.o:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/test/model_test.cpp.o
+.PHONY : test/model_test.cpp.o
+
+test/model_test.i: test/model_test.cpp.i
+
+.PHONY : test/model_test.i
+
+# target to preprocess a source file
+test/model_test.cpp.i:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/test/model_test.cpp.i
+.PHONY : test/model_test.cpp.i
+
+test/model_test.s: test/model_test.cpp.s
+
+.PHONY : test/model_test.s
+
+# target to generate assembly for a file
+test/model_test.cpp.s:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/test/model_test.cpp.s
+.PHONY : test/model_test.cpp.s
 
 # Help Target
 help:
@@ -266,6 +318,7 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... Test"
 	@echo "... NaiveBayes"
 	@echo "... src/classifying_engine.o"
 	@echo "... src/classifying_engine.i"
@@ -282,6 +335,9 @@ help:
 	@echo "... src/training_data.o"
 	@echo "... src/training_data.i"
 	@echo "... src/training_data.s"
+	@echo "... test/model_test.o"
+	@echo "... test/model_test.i"
+	@echo "... test/model_test.s"
 .PHONY : help
 
 
