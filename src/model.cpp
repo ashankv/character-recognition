@@ -11,47 +11,57 @@
  *
  * @param training_data the data to calculate the probability from.
  */
-void Model::calculateProbabilities(TrainingData& training_data) {
+void Model::calculateProbabilities(TrainingData& training_data, std::string& model_file_name) {
 
     calculateClassFrequencyAndProbabilities(training_data);
 
+    std::ifstream model_file(model_file_name);
     std::vector<ImageData> image_data = training_data.getTrainingImageDataVector();
     std::vector<int> image_labels = training_data.getTrainingImageLabelVector();
 
-    for (int i = 0; i < NUMBER_OF_PIXELS; i++) {
+    // If model file is empty, calculate all probabilities and load to file, else load probabilities from file.
+    if (model_file.peek() == std::ifstream::traits_type::eof()) {
 
-        for (int j = 0; j < image_data.size(); j++) {
+        for (int i = 0; i < NUMBER_OF_PIXELS; i++) {
 
-            ImageData current_image = image_data.at(j);
-            std::vector<bool> features = current_image.getPixels();
+            for (int j = 0; j < image_data.size(); j++) {
 
-            // Current pixel (F11, F12...etc)
-            bool is_foreground = features.at(i);
+                ImageData current_image = image_data.at(j);
+                std::vector<bool> features = current_image.getPixels();
 
-            // Corresponding class to jth ImageData
-            int current_class = image_labels[j];
+                // Current pixel (F11, F12...etc)
+                bool is_foreground = features.at(i);
 
-            // If it is a foreground pixel, go to the foreground position, else the background position.
-            if (is_foreground) {
-                probability_frequencies_[i][current_class][1] += 1.0;
-            } else {
-                probability_frequencies_[i][current_class][0] += 1.0;
+                // Corresponding class to jth ImageData
+                int current_class = image_labels[j];
+
+                // If it is a foreground pixel, go to the foreground position, else the background position.
+                if (is_foreground) {
+                    probability_frequencies_[i][current_class][1] += 1.0;
+                } else {
+                    probability_frequencies_[i][current_class][0] += 1.0;
+                }
             }
         }
-    }
 
-    // Iterate through each element in the probability array
-    for (int i = 0; i < NUMBER_OF_PIXELS; i++) {
-        for (int j = 0; j < NUMBER_OF_CLASSES; j++) {
-            for (int k = 0; k < FEATURE_OPTIONS; k++) {
-                int current_probability = probability_frequencies_[i][j][k];
+        // Iterate through each element in the probability array
+        for (int i = 0; i < NUMBER_OF_PIXELS; i++) {
+            for (int j = 0; j < NUMBER_OF_CLASSES; j++) {
+                for (int k = 0; k < FEATURE_OPTIONS; k++) {
+                    int current_probability = probability_frequencies_[i][j][k];
 
-                // Divide each probability frequency by total frequency
-                // Accounts for LaPlace smoothing as well
-                probabilities_[i][j][k] = ((double) current_probability + (double) K_LAPLACE_SMOOTHER) /
-                        ((double) label_frequencies[j] + (double) (2 * K_LAPLACE_SMOOTHER));
+                    // Divide each probability frequency by total frequency
+                    // Accounts for LaPlace smoothing as well
+                    probabilities_[i][j][k] = ((double) current_probability + (double) K_LAPLACE_SMOOTHER) /
+                                              ((double) label_frequencies[j] + (double) (2 * K_LAPLACE_SMOOTHER));
+                }
             }
         }
+
+        loadProbabilitiesToFile(model_file_name);
+
+    } else {
+        loadProbabilitiesFromFile(model_file_name);
     }
 }
 
@@ -69,9 +79,7 @@ void Model::calculateClassFrequencyAndProbabilities(TrainingData& training_data)
     }
 
     for (auto entry : label_frequencies) {
-
         double class_probability = (((double) entry.second) / (double) training_labels.size());
-
         class_probabilities[entry.first] = class_probability;
     }
 }
@@ -93,17 +101,22 @@ double Model::getSpecificProbability(int i, int j, int k) {
  */
 void Model::calculateProbabilitiesOfTestData(TestData& test_data) {
 
+    // Iterate through each Image Data object.
     for (auto& image : test_data.getTestImageDataVector()) {
 
         std::vector<bool> features = image.getPixels();
         std::map<int, double> posterior_probabilities;
 
+        // Iterate through each class.
         for (int i = 0; i < NUMBER_OF_CLASSES; i++) {
 
             double probability = log10(class_probabilities[i]);
 
             for (int j = 0; j < NUMBER_OF_PIXELS; j++) {
+
+                // Get specific feature and check to see if it's foreground and do according calculations
                 bool is_foreground = features.at(j);
+
                 if (is_foreground) {
                     probability += log10(getSpecificProbability(j, i, 1));
                 } else {
@@ -114,10 +127,62 @@ void Model::calculateProbabilitiesOfTestData(TestData& test_data) {
             posterior_probabilities[i] = probability;
         }
 
+        // Add to each ImageData object a map of class to probability
         image.addMapOfPosteriorProbabilities(posterior_probabilities);
         posterior_probabilities.clear();
 
     }
+}
+
+/** Load probabilities to file given the probability array.
+ *
+ * @param file_name the file to load to.
+ */
+void Model::loadProbabilitiesToFile(std::string& file_name) {
+
+    std::ofstream model_file(file_name);
+
+    if(!model_file) {
+        return;
+    }
+
+    // Print foreground probabilities
+    for (int i = 0; i < NUMBER_OF_PIXELS; i++) {
+        for (int j = 0; j < NUMBER_OF_CLASSES; j++) {
+            model_file << probabilities_[i][j][1];
+            model_file << std::endl;
+            model_file << probabilities_[i][j][0];
+            model_file << std::endl;
+        }
+    }
+
+    model_file.close();
+}
+
+/** Load probabilities from file given a file name.
+ *
+ * @param file_name the file to load from.
+ */
+void Model::loadProbabilitiesFromFile(std::string &file_name) {
+
+    std::ifstream model_file(file_name);
+
+    if(!model_file) {
+        return;
+    }
+
+    //double current_probability;
+    for (int i = 0; i < NUMBER_OF_PIXELS; i++) {
+        for (int j = 0; j < NUMBER_OF_CLASSES; j++) {
+
+            if (!model_file.eof()) {
+                model_file >> probabilities_[i][j][1];
+                model_file >> probabilities_[i][j][0];
+            }
+        }
+    }
+
+
 }
 
 

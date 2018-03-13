@@ -24,10 +24,14 @@ class Model {
 
 
 public:
-    void calculateProbabilities(TrainingData& training_data);
+    void calculateProbabilities(TrainingData& training_data, std::string& model_file_name);
     void calculateClassFrequencyAndProbabilities(TrainingData& training_data);
-    double getSpecificProbability(int i, int j, int k);
     void calculateProbabilitiesOfTestData(TestData& test_data);
+
+    double getSpecificProbability(int i, int j, int k);
+
+    void loadProbabilitiesToFile(std::string& file_name);
+    void loadProbabilitiesFromFile(std::string& file_name);
 
 };
 

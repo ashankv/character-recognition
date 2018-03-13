@@ -22,7 +22,7 @@ void TrainingData::readTrainingDataFromFileToVector(std::string& file_name) {
 
     char current_char;
     int counter = 0;
-    ImageData* image_data = new ImageData();
+    ImageData *image_data = new ImageData();
 
     while (file.get(current_char)) {
 
