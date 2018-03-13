@@ -16,10 +16,18 @@ const int K_LAPLACE_SMOOTHER = 1;
 
 class Model {
 
-    int probability_frequencies_[NUMBER_OF_PIXELS][NUMBER_OF_CLASSES][FEATURE_OPTIONS];
+private:
+
+    /** An array of frequencies of each pixel given number of class and type of feature. */
+    int feature_frequencies_[NUMBER_OF_PIXELS][NUMBER_OF_CLASSES][FEATURE_OPTIONS];
+
+    /** An array of probabilities of each pixel given number of class and type of feature. */
     double probabilities_[NUMBER_OF_PIXELS][NUMBER_OF_CLASSES][FEATURE_OPTIONS];
 
+    /** A map of class to frequency of class that appears. */
     std::map<int, int> label_frequencies;
+
+    /** A map of class to class probabilities based on the frequency of class that appears. */
     std::map<int, double> class_probabilities;
 
 

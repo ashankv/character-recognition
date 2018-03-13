@@ -27,7 +27,7 @@ void Model::calculateProbabilities(TrainingData& training_data, std::string& mod
             for (int j = 0; j < image_data.size(); j++) {
 
                 ImageData current_image = image_data.at(j);
-                std::vector<bool> features = current_image.getPixels();
+                std::vector<bool> features = current_image.getFeatures();
 
                 // Current pixel (F11, F12...etc)
                 bool is_foreground = features.at(i);
@@ -37,9 +37,9 @@ void Model::calculateProbabilities(TrainingData& training_data, std::string& mod
 
                 // If it is a foreground pixel, go to the foreground position, else the background position.
                 if (is_foreground) {
-                    probability_frequencies_[i][current_class][1] += 1.0;
+                    feature_frequencies_[i][current_class][1] += 1.0;
                 } else {
-                    probability_frequencies_[i][current_class][0] += 1.0;
+                    feature_frequencies_[i][current_class][0] += 1.0;
                 }
             }
         }
@@ -48,7 +48,7 @@ void Model::calculateProbabilities(TrainingData& training_data, std::string& mod
         for (int i = 0; i < NUMBER_OF_PIXELS; i++) {
             for (int j = 0; j < NUMBER_OF_CLASSES; j++) {
                 for (int k = 0; k < FEATURE_OPTIONS; k++) {
-                    int current_probability = probability_frequencies_[i][j][k];
+                    int current_probability = feature_frequencies_[i][j][k];
 
                     // Divide each probability frequency by total frequency
                     // Accounts for LaPlace smoothing as well
@@ -104,7 +104,7 @@ void Model::calculateProbabilitiesOfTestData(TestData& test_data) {
     // Iterate through each Image Data object.
     for (auto& image : test_data.getTestImageDataVector()) {
 
-        std::vector<bool> features = image.getPixels();
+        std::vector<bool> features = image.getFeatures();
         std::map<int, double> posterior_probabilities;
 
         // Iterate through each class.

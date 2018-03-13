@@ -8,18 +8,18 @@
 
 /** Adds a boolean pixel to the boolean vector.
  *
- * @param pixel the pixel to add.
+ * @param feature the pixel to add.
  */
-void ImageData::addToPixelVector(bool pixel) {
-    pixels_.push_back(pixel);
+void ImageData::addToFeatureVector(bool feature) {
+    features_.push_back(feature);
 }
 
 /** Retrieves the boolean pixel vector.
  *
  * @return the boolean pixel vector.
  */
-std::vector<bool>& ImageData::getPixels() {
-    return pixels_;
+std::vector<bool>& ImageData::getFeatures() {
+    return features_;
 }
 
 /** Add a copy map of posterior probabilities to the image data (class to posterior probability).

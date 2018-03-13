@@ -14,15 +14,20 @@ const int IMAGE_DIMENSION = 784;
 
 class ImageData {
 
-    std::vector<bool> pixels_;
+private:
+
+    /** A vector of booleans that represent foreground or background of the Image Data object. */
+    std::vector<bool> features_;
+
+    /** A map of class to each posterior probability of an Image Data object. */
     std::map<int, double> posterior_probabilities_;
 
 public:
 
-    ImageData() = default;
+    explicit ImageData() = default;
 
-    void addToPixelVector(bool pixel);
-    std::vector<bool>& getPixels();
+    void addToFeatureVector(bool feature);
+    std::vector<bool>& getFeatures();
     void addMapOfPosteriorProbabilities(std::map<int, double> posterior_probabilities);
     int getClassWithHighestProbabilityFromPosteriors();
 

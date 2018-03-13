@@ -30,9 +30,9 @@ void TestData::readTestDataFromFileToVector(std::string& file_name) {
 
         if (current_char != '\n') {
             if (current_char == '#' || current_char == '+') {
-                image_data->addToPixelVector(true);
+                image_data->addToFeatureVector(true);
             } else {
-                image_data->addToPixelVector(false);
+                image_data->addToFeatureVector(false);
             }
 
             counter++;
