@@ -13,7 +13,7 @@
  *
  * @param file_name the file name to read from.
  */
-void TestData::readTestDataFromFileToVector(std::string& file_name) {
+void TestData::ReadTestDataFromFileToVector(std::string &file_name) {
     std::ifstream file;
 
     file.open(file_name, std::ifstream::in);
@@ -30,9 +30,9 @@ void TestData::readTestDataFromFileToVector(std::string& file_name) {
 
         if (current_char != '\n') {
             if (current_char == '#' || current_char == '+') {
-                image_data->addToFeatureVector(true);
+                image_data->AddToFeatureVector(true);
             } else {
-                image_data->addToFeatureVector(false);
+                image_data->AddToFeatureVector(false);
             }
 
             counter++;
@@ -51,7 +51,7 @@ void TestData::readTestDataFromFileToVector(std::string& file_name) {
  *
  * @param file_name the file name to read from.
  */
-void TestData::readTestLabelsFromFileToVector(std::string& file_name) {
+void TestData::ReadTestLabelsFromFileToVector(std::string &file_name) {
 
     std::ifstream file(file_name);
 
@@ -61,10 +61,8 @@ void TestData::readTestLabelsFromFileToVector(std::string& file_name) {
 
     int current_int;
     while (!file.eof()) {
-
         if (file.peek() != ' '){
             file >> current_int;
-            //std::cout << current_int << std::endl;
             image_labels_.push_back(current_int);
         }
     }
@@ -73,30 +71,37 @@ void TestData::readTestLabelsFromFileToVector(std::string& file_name) {
 /** Populates the vector of classified labels of each ImageData object.
  *
  */
-void TestData::populateClassifiedLabels() {
+void TestData::PopulateClassifiedLabels() {
     for (auto& image : image_data_vector_) {
-        classified_labels_.push_back(image.getClassWithHighestProbabilityFromPosteriors());
+        classified_labels_.push_back(image.GetClassWithHighestProbabilityFromPosteriors());
     }
 }
 
 /** Populate confusion map, or frequency of each class given a class.
  *
  */
-void TestData::populateConfusionMap() {
+void TestData::PopulateConfusionMap() {
 
+    // Iterate through each class.
     for (int i = 0; i < NUMBER_OF_CLASSES; i++) {
 
+        // Creates a vector of class size, initialized with value of 0.
         std::vector<int> class_confusion_frequency(NUMBER_OF_CLASSES, 0);
 
+        // Iterate through number of test data
         for (int j = 0; j < classified_labels_.size(); j++) {
 
+            // Get actual/expected labels on the jth value
             int actual_label = classified_labels_[j];
             int expected_label = image_labels_[j];
 
+            // For every value that equals to the current i value, increase the frequency based on actual/expected
             if (expected_label == i) {
                 class_confusion_frequency[actual_label] += 1;
             }
         }
+
+        // Add the vector to the confusion map.
         confusion_map_[i] = class_confusion_frequency;
     }
 }
@@ -104,10 +109,10 @@ void TestData::populateConfusionMap() {
 /** Prints the 10x10 confusion matrix given the classified labels and the actual labels.
  *
  */
-void TestData::printConfusionMatrix() {
+void TestData::PrintConfusionMatrix() {
 
-    populateImageLabelFrequencies();
-    populateConfusionMap();
+    PopulateImageLabelFrequencies();
+    PopulateConfusionMap();
 
     std::cout << "CONFUSION MATRIX: Actual vs. Expected Percentages" << std::endl;
 
@@ -116,6 +121,7 @@ void TestData::printConfusionMatrix() {
 
         for(int j = 0; j < confusion_vector.size(); j++) {
 
+            // Rounds each element.
             double confusion_element = (double) confusion_vector[j] / (double) image_label_frequencies_[i];
             confusion_element = (round(confusion_element * ROUND_SCALER) / ROUND_SCALER) * PERCENT_SCALER;
 
@@ -134,7 +140,7 @@ void TestData::printConfusionMatrix() {
 /** Prints each classified label next to their corresponding test label.
  *
  */
-void TestData::printClassifiedLabels() {
+void TestData::PrintClassifiedLabels() {
 
     std::cout << "Classified Labels vs. Actual Labels" << std::endl;
     std::cout << std::endl;
@@ -150,7 +156,7 @@ void TestData::printClassifiedLabels() {
 /** Populates the frequency of each image label that appears in the test data.
  *
  */
-void TestData::populateImageLabelFrequencies() {
+void TestData::PopulateImageLabelFrequencies() {
 
     for (int i = 0; i < image_labels_.size(); i++) {
         image_label_frequencies_[image_labels_.at(i)] += 1;
@@ -161,7 +167,7 @@ void TestData::populateImageLabelFrequencies() {
  *
  * @return the classified labels.
  */
-std::vector<int>& TestData::getClassifiedLabels() {
+std::vector<int>& TestData::GetClassifiedLabels() {
     return classified_labels_;
 }
 
@@ -169,7 +175,7 @@ std::vector<int>& TestData::getClassifiedLabels() {
  *
  * @return the Image Data vector of test data.
  */
-std::vector<ImageData>& TestData::getTestImageDataVector() {
+std::vector<ImageData>& TestData::GetTestImageDataVector() {
     return image_data_vector_;
 }
 
@@ -177,7 +183,7 @@ std::vector<ImageData>& TestData::getTestImageDataVector() {
  *
  * @return the test image labels from the data.
  */
-std::vector<int>& TestData::getTestImageLabelVector() {
+std::vector<int>& TestData::GetTestImageLabelVector() {
     return image_labels_;
 }
 

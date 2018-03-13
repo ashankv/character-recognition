@@ -25,11 +25,11 @@ private:
     std::vector<int> image_labels_;
 
 public:
-    void readTrainingDataFromFileToVector(std::string& file_name);
-    void readTrainingLabelsFromFileToVector(std::string& file_name);
+    void ReadTrainingDataFromFileToVector(std::string &file_name);
+    void ReadTrainingLabelsFromFileToVector(std::string &file_name);
 
-    std::vector<ImageData>& getTrainingImageDataVector();
-    std::vector<int>& getTrainingImageLabelVector();
+    std::vector<ImageData>& GetTrainingImageDataVector();
+    std::vector<int>& GetTrainingImageLabelVector();
 
 };
 

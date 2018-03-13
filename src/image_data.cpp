@@ -10,7 +10,7 @@
  *
  * @param feature the pixel to add.
  */
-void ImageData::addToFeatureVector(bool feature) {
+void ImageData::AddToFeatureVector(bool feature) {
     features_.push_back(feature);
 }
 
@@ -18,7 +18,7 @@ void ImageData::addToFeatureVector(bool feature) {
  *
  * @return the boolean pixel vector.
  */
-std::vector<bool>& ImageData::getFeatures() {
+std::vector<bool>& ImageData::GetFeatures() {
     return features_;
 }
 
@@ -26,7 +26,7 @@ std::vector<bool>& ImageData::getFeatures() {
  *
  * @param posterior_probabilities the map of posterior probabilities to add.
  */
-void ImageData::addMapOfPosteriorProbabilities(std::map<int, double> posterior_probabilities) {
+void ImageData::AddMapOfPosteriorProbabilities(std::map<int, double> posterior_probabilities) {
     posterior_probabilities_ = posterior_probabilities;
 }
 
@@ -34,7 +34,7 @@ void ImageData::addMapOfPosteriorProbabilities(std::map<int, double> posterior_p
  *
  * @return the class with the highest probability.
  */
-int ImageData::getClassWithHighestProbabilityFromPosteriors() {
+int ImageData::GetClassWithHighestProbabilityFromPosteriors() {
 
     int best_class = 0;
     double best_probability = SMALL_CONSTANT;

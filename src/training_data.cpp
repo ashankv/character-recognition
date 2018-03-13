@@ -10,7 +10,7 @@
  *
  * @param file_name the file name to be read from.
  */
-void TrainingData::readTrainingDataFromFileToVector(std::string& file_name) {
+void TrainingData::ReadTrainingDataFromFileToVector(std::string &file_name) {
 
     std::ifstream file;
 
@@ -28,9 +28,9 @@ void TrainingData::readTrainingDataFromFileToVector(std::string& file_name) {
 
         if (current_char != '\n') {
             if (current_char == '#' || current_char == '+') {
-                image_data->addToFeatureVector(true);
+                image_data->AddToFeatureVector(true);
             } else {
-                image_data->addToFeatureVector(false);
+                image_data->AddToFeatureVector(false);
             }
 
             counter++;
@@ -50,7 +50,7 @@ void TrainingData::readTrainingDataFromFileToVector(std::string& file_name) {
  *
  * @param file_name the file name to be read from.
  */
-void TrainingData::readTrainingLabelsFromFileToVector(std::string& file_name) {
+void TrainingData::ReadTrainingLabelsFromFileToVector(std::string &file_name) {
 
     std::ifstream file(file_name);
 
@@ -72,7 +72,7 @@ void TrainingData::readTrainingLabelsFromFileToVector(std::string& file_name) {
  *
  * @return the image data vector to retrieve.
  */
-std::vector<ImageData>& TrainingData::getTrainingImageDataVector() {
+std::vector<ImageData>& TrainingData::GetTrainingImageDataVector() {
     return image_data_vector_;
 }
 
@@ -80,7 +80,7 @@ std::vector<ImageData>& TrainingData::getTrainingImageDataVector() {
  *
  * @return the image label vector to retrieve.
  */
-std::vector<int>& TrainingData::getTrainingImageLabelVector() {
+std::vector<int>& TrainingData::GetTrainingImageLabelVector() {
     return image_labels_;
 }
 

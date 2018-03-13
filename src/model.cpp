@@ -11,13 +11,13 @@
  *
  * @param training_data the data to calculate the probability from.
  */
-void Model::calculateProbabilities(TrainingData& training_data, std::string& model_file_name) {
+void Model::CalculateProbabilities(TrainingData &training_data, std::string &model_file_name) {
 
-    calculateClassFrequencyAndProbabilities(training_data);
+    CalculateClassFrequencyAndProbabilities(training_data);
 
     std::ifstream model_file(model_file_name);
-    std::vector<ImageData> image_data = training_data.getTrainingImageDataVector();
-    std::vector<int> image_labels = training_data.getTrainingImageLabelVector();
+    std::vector<ImageData> image_data = training_data.GetTrainingImageDataVector();
+    std::vector<int> image_labels = training_data.GetTrainingImageLabelVector();
 
     // If model file is empty, calculate all probabilities and load to file, else load probabilities from file.
     if (model_file.peek() == std::ifstream::traits_type::eof()) {
@@ -27,7 +27,7 @@ void Model::calculateProbabilities(TrainingData& training_data, std::string& mod
             for (int j = 0; j < image_data.size(); j++) {
 
                 ImageData current_image = image_data.at(j);
-                std::vector<bool> features = current_image.getFeatures();
+                std::vector<bool> features = current_image.GetFeatures();
 
                 // Current pixel (F11, F12...etc)
                 bool is_foreground = features.at(i);
@@ -53,15 +53,15 @@ void Model::calculateProbabilities(TrainingData& training_data, std::string& mod
                     // Divide each probability frequency by total frequency
                     // Accounts for LaPlace smoothing as well
                     probabilities_[i][j][k] = ((double) current_probability + (double) K_LAPLACE_SMOOTHER) /
-                                              ((double) label_frequencies[j] + (double) (2 * K_LAPLACE_SMOOTHER));
+                                              ((double) label_frequencies_[j] + (double) (2 * K_LAPLACE_SMOOTHER));
                 }
             }
         }
 
-        loadProbabilitiesToFile(model_file_name);
+        LoadProbabilitiesToFile(model_file_name);
 
     } else {
-        loadProbabilitiesFromFile(model_file_name);
+        LoadProbabilitiesFromFile(model_file_name);
     }
 }
 
@@ -70,17 +70,19 @@ void Model::calculateProbabilities(TrainingData& training_data, std::string& mod
  * @param training_data the data to calculate class frequency from.
  * @param label_frequencies the map to populate.
  */
-void Model::calculateClassFrequencyAndProbabilities(TrainingData& training_data) {
+void Model::CalculateClassFrequencyAndProbabilities(TrainingData &training_data) {
 
-    std::vector<int> training_labels = training_data.getTrainingImageLabelVector();
+    std::vector<int> training_labels = training_data.GetTrainingImageLabelVector();
 
+    // Calculate label frequencies given a training data.
     for (int i = 0; i < training_labels.size(); i++) {
-        label_frequencies[training_labels.at(i)] += 1;
+        label_frequencies_[training_labels.at(i)] += 1;
     }
 
-    for (auto entry : label_frequencies) {
+    // Calculate the class probability based on the frequencies and store it in the private attribute.
+    for (auto entry : label_frequencies_) {
         double class_probability = (((double) entry.second) / (double) training_labels.size());
-        class_probabilities[entry.first] = class_probability;
+        class_probabilities_[entry.first] = class_probability;
     }
 }
 
@@ -91,7 +93,7 @@ void Model::calculateClassFrequencyAndProbabilities(TrainingData& training_data)
  * @param k the feature type dimension.
  * @return the probability at the i, j, kth position.
  */
-double Model::getSpecificProbability(int i, int j, int k) {
+double Model::GetSpecificProbability(int i, int j, int k) {
     return probabilities_[i][j][k];
 }
 
@@ -99,18 +101,18 @@ double Model::getSpecificProbability(int i, int j, int k) {
  *
  * @param test_data the test data to calculate all the posterior probabilities of.
  */
-void Model::calculateProbabilitiesOfTestData(TestData& test_data) {
+void Model::CalculateProbabilitiesOfTestData(TestData &test_data) {
 
     // Iterate through each Image Data object.
-    for (auto& image : test_data.getTestImageDataVector()) {
+    for (auto& image : test_data.GetTestImageDataVector()) {
 
-        std::vector<bool> features = image.getFeatures();
+        std::vector<bool> features = image.GetFeatures();
         std::map<int, double> posterior_probabilities;
 
         // Iterate through each class.
         for (int i = 0; i < NUMBER_OF_CLASSES; i++) {
 
-            double probability = log10(class_probabilities[i]);
+            double probability = log10(class_probabilities_[i]);
 
             for (int j = 0; j < NUMBER_OF_PIXELS; j++) {
 
@@ -118,9 +120,9 @@ void Model::calculateProbabilitiesOfTestData(TestData& test_data) {
                 bool is_foreground = features.at(j);
 
                 if (is_foreground) {
-                    probability += log10(getSpecificProbability(j, i, 1));
+                    probability += log10(GetSpecificProbability(j, i, 1));
                 } else {
-                    probability += log10(getSpecificProbability(j, i, 0));
+                    probability += log10(GetSpecificProbability(j, i, 0));
                 }
             }
 
@@ -128,7 +130,7 @@ void Model::calculateProbabilitiesOfTestData(TestData& test_data) {
         }
 
         // Add to each ImageData object a map of class to probability
-        image.addMapOfPosteriorProbabilities(posterior_probabilities);
+        image.AddMapOfPosteriorProbabilities(posterior_probabilities);
         posterior_probabilities.clear();
 
     }
@@ -138,7 +140,7 @@ void Model::calculateProbabilitiesOfTestData(TestData& test_data) {
  *
  * @param file_name the file to load to.
  */
-void Model::loadProbabilitiesToFile(std::string& file_name) {
+void Model::LoadProbabilitiesToFile(std::string &file_name) {
 
     std::ofstream model_file(file_name);
 
@@ -146,7 +148,7 @@ void Model::loadProbabilitiesToFile(std::string& file_name) {
         return;
     }
 
-    // Print foreground probabilities
+    // Print probabilities to file
     for (int i = 0; i < NUMBER_OF_PIXELS; i++) {
         for (int j = 0; j < NUMBER_OF_CLASSES; j++) {
             model_file << probabilities_[i][j][1];
@@ -163,7 +165,7 @@ void Model::loadProbabilitiesToFile(std::string& file_name) {
  *
  * @param file_name the file to load from.
  */
-void Model::loadProbabilitiesFromFile(std::string &file_name) {
+void Model::LoadProbabilitiesFromFile(std::string &file_name) {
 
     std::ifstream model_file(file_name);
 
@@ -171,7 +173,7 @@ void Model::loadProbabilitiesFromFile(std::string &file_name) {
         return;
     }
 
-    //double current_probability;
+    // Load each line of probability to the probability array.
     for (int i = 0; i < NUMBER_OF_PIXELS; i++) {
         for (int j = 0; j < NUMBER_OF_CLASSES; j++) {
 
@@ -182,7 +184,7 @@ void Model::loadProbabilitiesFromFile(std::string &file_name) {
         }
     }
 
-
+    model_file.close();
 }
 
 

@@ -6,6 +6,7 @@
 
 int main() {
 
+    // All file names.
     std::string training_images_file_name = "../data/trainingimages";
     std::string training_labels_file_name = "../data/traininglabels";
     std::string test_images_file_name = "../data/testimages";
@@ -16,19 +17,26 @@ int main() {
     Model model;
     TestData test_data;
 
-    training_data.readTrainingDataFromFileToVector(training_images_file_name);
-    training_data.readTrainingLabelsFromFileToVector(training_labels_file_name);
+    // Populate TrainingData object.
+    training_data.ReadTrainingDataFromFileToVector(training_images_file_name);
+    training_data.ReadTrainingLabelsFromFileToVector(training_labels_file_name);
 
-    model.calculateProbabilities(training_data, model_file_name);
+    // Create model using TrainingData object.
+    model.CalculateProbabilities(training_data, model_file_name);
 
-    test_data.readTestDataFromFileToVector(test_images_file_name);
-    test_data.readTestLabelsFromFileToVector(test_labels_file_name);
+    // Populate TestData object.
+    test_data.ReadTestDataFromFileToVector(test_images_file_name);
+    test_data.ReadTestLabelsFromFileToVector(test_labels_file_name);
 
-    model.calculateProbabilitiesOfTestData(test_data);
-    test_data.populateClassifiedLabels();
+    // Calculate probabilities of TestData object.
+    model.CalculateProbabilitiesOfTestData(test_data);
 
-    test_data.printClassifiedLabels();
-    test_data.printConfusionMatrix();
+    // Classify each ImageData with class with highest posterior probability.
+    test_data.PopulateClassifiedLabels();
+
+    // Print classified labels and confusion matrix.
+    test_data.PrintClassifiedLabels();
+    test_data.PrintConfusionMatrix();
 
     return 0;
 }

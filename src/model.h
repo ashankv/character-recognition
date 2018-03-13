@@ -25,21 +25,20 @@ private:
     double probabilities_[NUMBER_OF_PIXELS][NUMBER_OF_CLASSES][FEATURE_OPTIONS];
 
     /** A map of class to frequency of class that appears. */
-    std::map<int, int> label_frequencies;
+    std::map<int, int> label_frequencies_;
 
     /** A map of class to class probabilities based on the frequency of class that appears. */
-    std::map<int, double> class_probabilities;
-
+    std::map<int, double> class_probabilities_;
 
 public:
-    void calculateProbabilities(TrainingData& training_data, std::string& model_file_name);
-    void calculateClassFrequencyAndProbabilities(TrainingData& training_data);
-    void calculateProbabilitiesOfTestData(TestData& test_data);
+    void CalculateProbabilities(TrainingData &training_data, std::string &model_file_name);
+    void CalculateClassFrequencyAndProbabilities(TrainingData &training_data);
+    void CalculateProbabilitiesOfTestData(TestData &test_data);
 
-    double getSpecificProbability(int i, int j, int k);
+    double GetSpecificProbability(int i, int j, int k);
 
-    void loadProbabilitiesToFile(std::string& file_name);
-    void loadProbabilitiesFromFile(std::string& file_name);
+    void LoadProbabilitiesToFile(std::string &file_name);
+    void LoadProbabilitiesFromFile(std::string &file_name);
 
 };
 

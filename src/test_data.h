@@ -34,19 +34,19 @@ private:
 
 public:
 
-    void readTestDataFromFileToVector(std::string& file_name);
-    void readTestLabelsFromFileToVector(std::string& file_name);
+    void ReadTestDataFromFileToVector(std::string &file_name);
+    void ReadTestLabelsFromFileToVector(std::string &file_name);
 
-    std::vector<ImageData>& getTestImageDataVector();
-    std::vector<int>& getTestImageLabelVector();
-    std::vector<int>& getClassifiedLabels();
+    std::vector<ImageData>& GetTestImageDataVector();
+    std::vector<int>& GetTestImageLabelVector();
+    std::vector<int>& GetClassifiedLabels();
 
-    void populateClassifiedLabels();
-    void populateConfusionMap();
-    void populateImageLabelFrequencies();
+    void PopulateClassifiedLabels();
+    void PopulateConfusionMap();
+    void PopulateImageLabelFrequencies();
 
-    void printConfusionMatrix();
-    void printClassifiedLabels();
+    void PrintConfusionMatrix();
+    void PrintClassifiedLabels();
 
 };
 

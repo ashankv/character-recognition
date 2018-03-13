@@ -26,10 +26,10 @@ public:
 
     explicit ImageData() = default;
 
-    void addToFeatureVector(bool feature);
-    std::vector<bool>& getFeatures();
-    void addMapOfPosteriorProbabilities(std::map<int, double> posterior_probabilities);
-    int getClassWithHighestProbabilityFromPosteriors();
+    void AddToFeatureVector(bool feature);
+    std::vector<bool>& GetFeatures();
+    void AddMapOfPosteriorProbabilities(std::map<int, double> posterior_probabilities);
+    int GetClassWithHighestProbabilityFromPosteriors();
 
 
 };
