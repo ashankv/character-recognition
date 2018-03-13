@@ -22,14 +22,22 @@ std::vector<bool>& ImageData::getPixels() {
     return pixels_;
 }
 
+/** Add a copy map of posterior probabilities to the image data (class to posterior probability).
+ *
+ * @param posterior_probabilities the map of posterior probabilities to add.
+ */
 void ImageData::addMapOfPosteriorProbabilities(std::map<int, double> posterior_probabilities) {
     posterior_probabilities_ = posterior_probabilities;
 }
 
+/** Retrieve the class with the highest probability (classification).
+ *
+ * @return the class with the highest probability.
+ */
 int ImageData::getClassWithHighestProbabilityFromPosteriors() {
 
     int best_class = 0;
-    double best_probability = -10000000;
+    double best_probability = SMALL_CONSTANT;
 
     for (const auto& pair : posterior_probabilities_) {
         if (pair.second > best_probability) {

@@ -19,10 +19,6 @@ int main() {
     Model model;
     model.calculateProbabilities(training_data);
 
-    //std::cout << model.getSpecificProbability(0, 3, 0);
-    //std::cout << image_data_vector.size() << std::endl;
-    //std::cout << image_data_labels.size() << std::endl;
-
     TestData test_data;
     std::string file_name3 = "../data/testimages";
     std::string file_name4 = "../data/testlabels";
@@ -32,12 +28,17 @@ int main() {
     std::vector<int> test_labels = test_data.getTestImageLabelVector();
 
     model.calculateProbabilitiesOfTestData(test_data);
+    test_data.populateClassifiedLabels();
 
-    int i = 0;
-    for (auto data : test_data.getTestImageDataVector()) {
-        std::cout << data.getClassWithHighestProbabilityFromPosteriors() << " | " << test_labels.at(i) << std::endl;
-        i++;
+    std::vector<int> classified_labels = test_data.getClassifiedLabels();
+
+    for (int i = 0; i < classified_labels.size(); i++) {
+        std::cout << classified_labels[i] << "|" << test_labels[i] << std::endl;
     }
+
+    std::cout << std::endl;
+
+    test_data.printConfusionMatrix();
 
 
 

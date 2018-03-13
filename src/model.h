@@ -11,7 +11,6 @@
 #include "training_data.h"
 #include "test_data.h"
 
-const int NUMBER_OF_CLASSES = 10;
 const int FEATURE_OPTIONS = 2;
 const int K_LAPLACE_SMOOTHER = 1;
 

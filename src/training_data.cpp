@@ -26,24 +26,16 @@ void TrainingData::readTrainingDataFromFileToVector(std::string& file_name) {
 
     while (file.get(current_char)) {
 
-        //std::cout << current_char;
-
         if (current_char != '\n') {
             if (current_char == '#' || current_char == '+') {
                 image_data->addToPixelVector(true);
-                //std::cout << true << "|";
             } else {
                 image_data->addToPixelVector(false);
-                //std::cout << false << "|";
             }
 
             counter++;
 
-            //std::cout << "Counter: " << counter << std::endl;
-
             if (counter >= NUMBER_OF_PIXELS) {
-                //std::cout << std::endl;
-                //std::cout << "------" << std::endl;
                 image_data_vector_.push_back(*image_data);
                 image_data = new ImageData();
                 counter = 0;
@@ -67,11 +59,10 @@ void TrainingData::readTrainingLabelsFromFileToVector(std::string& file_name) {
     }
 
     int current_int;
-    while (!file.eof()) {
 
+    while (!file.eof()) {
         if (file.peek() != ' '){
             file >> current_int;
-            //std::cout << current_int << std::endl;
             image_labels_.push_back(current_int);
         }
     }

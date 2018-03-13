@@ -13,7 +13,6 @@
  */
 void Model::calculateProbabilities(TrainingData& training_data) {
 
-
     calculateClassFrequencyAndProbabilities(training_data);
 
     std::vector<ImageData> image_data = training_data.getTrainingImageDataVector();
@@ -32,45 +31,25 @@ void Model::calculateProbabilities(TrainingData& training_data) {
             // Corresponding class to jth ImageData
             int current_class = image_labels[j];
 
+            // If it is a foreground pixel, go to the foreground position, else the background position.
             if (is_foreground) {
-
-
                 probability_frequencies_[i][current_class][1] += 1.0;
-
-                /*if (probability_frequencies_[i][current_class][1] >= 5000) {
-
-                } */
-
-
             } else {
-
                 probability_frequencies_[i][current_class][0] += 1.0;
-
-                /*if (probabilities_[i][current_class][0] >= 5000) {
-                    std::cout << i << "|" << current_class << std::endl;
-                }*/
-
             }
         }
-
-        //for (int num = 0; num < 10; num++) {
-        //    std::cout << probabilities_[i][num][0] << "|" << probabilities_[i][num][1] << std::endl;
-        //}
-
     }
 
+    // Iterate through each element in the probability array
     for (int i = 0; i < NUMBER_OF_PIXELS; i++) {
         for (int j = 0; j < NUMBER_OF_CLASSES; j++) {
             for (int k = 0; k < FEATURE_OPTIONS; k++) {
                 int current_probability = probability_frequencies_[i][j][k];
 
-                //std::cout << probabilities_[i][j][k] << std::endl;
-
+                // Divide each probability frequency by total frequency
+                // Accounts for LaPlace smoothing as well
                 probabilities_[i][j][k] = ((double) current_probability + (double) K_LAPLACE_SMOOTHER) /
                         ((double) label_frequencies[j] + (double) (2 * K_LAPLACE_SMOOTHER));
-
-                //std::cout << probabilities_[i][j][k] << std::endl;
-
             }
         }
     }
@@ -94,11 +73,7 @@ void Model::calculateClassFrequencyAndProbabilities(TrainingData& training_data)
         double class_probability = (((double) entry.second) / (double) training_labels.size());
 
         class_probabilities[entry.first] = class_probability;
-        //std::cout<< entry.first << "|" << class_probability << "|" << log10(class_probability) << std::endl;
     }
-
-
-
 }
 
 /** Gets the specific probability at a given dimension.
@@ -112,6 +87,10 @@ double Model::getSpecificProbability(int i, int j, int k) {
     return probabilities_[i][j][k];
 }
 
+/** Calculates all the posterior probabilities given a test data object.
+ *
+ * @param test_data the test data to calculate all the posterior probabilities of.
+ */
 void Model::calculateProbabilitiesOfTestData(TestData& test_data) {
 
     for (auto& image : test_data.getTestImageDataVector()) {
@@ -119,24 +98,19 @@ void Model::calculateProbabilitiesOfTestData(TestData& test_data) {
         std::vector<bool> features = image.getPixels();
         std::map<int, double> posterior_probabilities;
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < NUMBER_OF_CLASSES; i++) {
 
             double probability = log10(class_probabilities[i]);
-            //std::cout << probability << std::endl;
 
-            for (int j = 0; j < 784; j++) {
+            for (int j = 0; j < NUMBER_OF_PIXELS; j++) {
                 bool is_foreground = features.at(j);
                 if (is_foreground) {
-                    //std::cout << log10(getSpecificProbability(j, i, 1)) << std:: endl;
-                    //std::cout << getSpecificProbability(j, i, 1) << std:: endl;
                     probability += log10(getSpecificProbability(j, i, 1));
                 } else {
                     probability += log10(getSpecificProbability(j, i, 0));
-                    //std::cout << log10(getSpecificProbability(j, i, 0)) << std:: endl;
                 }
             }
 
-            //std::cout << probability << std::endl;
             posterior_probabilities[i] = probability;
         }
 
@@ -144,8 +118,6 @@ void Model::calculateProbabilitiesOfTestData(TestData& test_data) {
         posterior_probabilities.clear();
 
     }
-
-
 }
 
 

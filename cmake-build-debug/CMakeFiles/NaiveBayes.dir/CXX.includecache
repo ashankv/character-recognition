@@ -53,6 +53,14 @@ test_data.h
 /Users/ashank/CLionProjects/NaiveBayes/src/test_data.cpp
 fstream
 -
+array
+-
+iomanip
+-
+cmath
+-
+sstream
+-
 test_data.h
 /Users/ashank/CLionProjects/NaiveBayes/src/test_data.h
 training_data.h

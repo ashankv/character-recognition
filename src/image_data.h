@@ -9,9 +9,7 @@
 #include <vector>
 #include <map>
 
-// Forward declaration of Model class
-class Model;
-
+const int SMALL_CONSTANT = -10000000;
 const int IMAGE_DIMENSION = 784;
 
 class ImageData {
