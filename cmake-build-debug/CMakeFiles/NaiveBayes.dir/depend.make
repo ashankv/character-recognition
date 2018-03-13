@@ -4,6 +4,7 @@
 CMakeFiles/NaiveBayes.dir/src/classifying_engine.cpp.o: ../src/classifying_engine.cpp
 CMakeFiles/NaiveBayes.dir/src/classifying_engine.cpp.o: ../src/image_data.h
 CMakeFiles/NaiveBayes.dir/src/classifying_engine.cpp.o: ../src/model.h
+CMakeFiles/NaiveBayes.dir/src/classifying_engine.cpp.o: ../src/test_data.h
 CMakeFiles/NaiveBayes.dir/src/classifying_engine.cpp.o: ../src/training_data.h
 
 CMakeFiles/NaiveBayes.dir/src/image_data.cpp.o: ../src/image_data.cpp
@@ -12,6 +13,7 @@ CMakeFiles/NaiveBayes.dir/src/image_data.cpp.o: ../src/image_data.h
 CMakeFiles/NaiveBayes.dir/src/model.cpp.o: ../src/image_data.h
 CMakeFiles/NaiveBayes.dir/src/model.cpp.o: ../src/model.cpp
 CMakeFiles/NaiveBayes.dir/src/model.cpp.o: ../src/model.h
+CMakeFiles/NaiveBayes.dir/src/model.cpp.o: ../src/test_data.h
 CMakeFiles/NaiveBayes.dir/src/model.cpp.o: ../src/training_data.h
 
 CMakeFiles/NaiveBayes.dir/src/test_data.cpp.o: ../src/image_data.h

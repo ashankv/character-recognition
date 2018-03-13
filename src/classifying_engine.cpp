@@ -19,9 +19,27 @@ int main() {
     Model model;
     model.calculateProbabilities(training_data);
 
-    std::cout << model.getSpecificProbability(0, 3, 0);
+    //std::cout << model.getSpecificProbability(0, 3, 0);
     //std::cout << image_data_vector.size() << std::endl;
     //std::cout << image_data_labels.size() << std::endl;
+
+    TestData test_data;
+    std::string file_name3 = "../data/testimages";
+    std::string file_name4 = "../data/testlabels";
+
+    test_data.readTestDataFromFileToVector(file_name3);
+    test_data.readTestLabelsFromFileToVector(file_name4);
+    std::vector<int> test_labels = test_data.getTestImageLabelVector();
+
+    model.calculateProbabilitiesOfTestData(test_data);
+
+    int i = 0;
+    for (auto data : test_data.getTestImageDataVector()) {
+        std::cout << data.getClassWithHighestProbabilityFromPosteriors() << " | " << test_labels.at(i) << std::endl;
+        i++;
+    }
+
+
 
     return 0;
 }

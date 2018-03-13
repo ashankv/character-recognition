@@ -18,8 +18,7 @@ public:
     void readTestLabelsFromFileToVector(std::string& file_name);
     std::vector<ImageData>& getTestImageDataVector();
     std::vector<int>& getTestImageLabelVector();
-
-
+    std::map<int, int> getImageLabelFrequencies();
 };
 
 

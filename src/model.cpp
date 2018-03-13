@@ -4,6 +4,7 @@
 
 #include <map>
 #include "model.h"
+#include "math.h"
 
 
 /** Calculates and populates the 3 dimensional probability array of the model.
@@ -26,26 +27,49 @@ void Model::calculateProbabilities(TrainingData& training_data) {
             std::vector<bool> features = current_image.getPixels();
 
             // Current pixel (F11, F12...etc)
-            bool current_feature = features.at(i);
+            bool is_foreground = features.at(i);
 
             // Corresponding class to jth ImageData
-            int current_class = image_labels.at(j);
+            int current_class = image_labels[j];
 
-            if (current_feature) {
-                probabilities_[i][current_class][1] += 1;
+            if (is_foreground) {
+
+
+                probability_frequencies_[i][current_class][1] += 1.0;
+
+                /*if (probability_frequencies_[i][current_class][1] >= 5000) {
+
+                } */
+
+
             } else {
-                probabilities_[i][current_class][0] += 1;
+
+                probability_frequencies_[i][current_class][0] += 1.0;
+
+                /*if (probabilities_[i][current_class][0] >= 5000) {
+                    std::cout << i << "|" << current_class << std::endl;
+                }*/
+
             }
         }
+
+        //for (int num = 0; num < 10; num++) {
+        //    std::cout << probabilities_[i][num][0] << "|" << probabilities_[i][num][1] << std::endl;
+        //}
+
     }
 
     for (int i = 0; i < NUMBER_OF_PIXELS; i++) {
         for (int j = 0; j < NUMBER_OF_CLASSES; j++) {
             for (int k = 0; k < FEATURE_OPTIONS; k++) {
-                double current_probability = probabilities_[i][j][k];
+                int current_probability = probability_frequencies_[i][j][k];
 
-                probabilities_[i][j][k] = (current_probability + K_LAPLACE_SMOOTHER) /
-                        ((double) label_frequencies[j] + (2 * K_LAPLACE_SMOOTHER));
+                //std::cout << probabilities_[i][j][k] << std::endl;
+
+                probabilities_[i][j][k] = ((double) current_probability + (double) K_LAPLACE_SMOOTHER) /
+                        ((double) label_frequencies[j] + (double) (2 * K_LAPLACE_SMOOTHER));
+
+                //std::cout << probabilities_[i][j][k] << std::endl;
 
             }
         }
@@ -66,8 +90,14 @@ void Model::calculateClassFrequencyAndProbabilities(TrainingData& training_data)
     }
 
     for (auto entry : label_frequencies) {
-        class_probabilities[entry.first] = (((double) entry.second) / (double) training_labels.size());
+
+        double class_probability = (((double) entry.second) / (double) training_labels.size());
+
+        class_probabilities[entry.first] = class_probability;
+        //std::cout<< entry.first << "|" << class_probability << "|" << log10(class_probability) << std::endl;
     }
+
+
 
 }
 
@@ -80,6 +110,42 @@ void Model::calculateClassFrequencyAndProbabilities(TrainingData& training_data)
  */
 double Model::getSpecificProbability(int i, int j, int k) {
     return probabilities_[i][j][k];
+}
+
+void Model::calculateProbabilitiesOfTestData(TestData& test_data) {
+
+    for (auto& image : test_data.getTestImageDataVector()) {
+
+        std::vector<bool> features = image.getPixels();
+        std::map<int, double> posterior_probabilities;
+
+        for (int i = 0; i < 10; i++) {
+
+            double probability = log10(class_probabilities[i]);
+            //std::cout << probability << std::endl;
+
+            for (int j = 0; j < 784; j++) {
+                bool is_foreground = features.at(j);
+                if (is_foreground) {
+                    //std::cout << log10(getSpecificProbability(j, i, 1)) << std:: endl;
+                    //std::cout << getSpecificProbability(j, i, 1) << std:: endl;
+                    probability += log10(getSpecificProbability(j, i, 1));
+                } else {
+                    probability += log10(getSpecificProbability(j, i, 0));
+                    //std::cout << log10(getSpecificProbability(j, i, 0)) << std:: endl;
+                }
+            }
+
+            //std::cout << probability << std::endl;
+            posterior_probabilities[i] = probability;
+        }
+
+        image.addMapOfPosteriorProbabilities(posterior_probabilities);
+        posterior_probabilities.clear();
+
+    }
+
+
 }
 
 

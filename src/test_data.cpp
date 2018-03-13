@@ -24,20 +24,14 @@ void TestData::readTestDataFromFileToVector(std::string& file_name) {
 
     while (file.get(current_char)) {
 
-        //std::cout << current_char;
-
         if (current_char != '\n') {
             if (current_char == '#' || current_char == '+') {
                 image_data->addToPixelVector(true);
-                //std::cout << true << "|";
             } else {
                 image_data->addToPixelVector(false);
-                //std::cout << false << "|";
             }
 
             counter++;
-
-            //std::cout << "Counter: " << counter << std::endl;
 
             if (counter >= NUMBER_OF_PIXELS) {
                 image_data_vector_.push_back(*image_data);

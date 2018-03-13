@@ -42,6 +42,8 @@ void TrainingData::readTrainingDataFromFileToVector(std::string& file_name) {
             //std::cout << "Counter: " << counter << std::endl;
 
             if (counter >= NUMBER_OF_PIXELS) {
+                //std::cout << std::endl;
+                //std::cout << "------" << std::endl;
                 image_data_vector_.push_back(*image_data);
                 image_data = new ImageData();
                 counter = 0;

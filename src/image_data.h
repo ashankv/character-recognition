@@ -25,10 +25,10 @@ public:
 
     void addToPixelVector(bool pixel);
     std::vector<bool>& getPixels();
-    void calculatePosteriorProbabilitiesUsingModel(Model* model);
+    void addMapOfPosteriorProbabilities(std::map<int, double> posterior_probabilities);
+    int getClassWithHighestProbabilityFromPosteriors();
 
 
-    //TODO: for each image data object within test data object, put map of class to probability in image data. this method should be in the model (takes test data reference)
 };
 
 

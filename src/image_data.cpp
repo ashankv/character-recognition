@@ -22,23 +22,23 @@ std::vector<bool>& ImageData::getPixels() {
     return pixels_;
 }
 
-/*void ImageData::calculatePosteriorProbabilitiesUsingModel(Model* model) {
+void ImageData::addMapOfPosteriorProbabilities(std::map<int, double> posterior_probabilities) {
+    posterior_probabilities_ = posterior_probabilities;
+}
 
-    for (int i = 0; i < 10; i++) {
-        double probability = 0.0;
+int ImageData::getClassWithHighestProbabilityFromPosteriors() {
 
-        for (int j = 0; j < 784; j++) {
-            bool is_foreground = pixels_[j];
-            if (is_foreground) {
-                probability += log10(model.getSpecificProbability(j, i, 1));
-            } else {
-                probability += log10(model.getSpecificProbability(j, i, 0));
-            }
+    int best_class = 0;
+    double best_probability = -10000000;
+
+    for (const auto& pair : posterior_probabilities_) {
+        if (pair.second > best_probability) {
+            best_probability = pair.second;
+            best_class = pair.first;
         }
     }
+    return best_class;
+}
 
-
-    //return std::map<int, double>();
-} */
 
 
