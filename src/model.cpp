@@ -11,7 +11,7 @@
  *
  * @param training_data the data to calculate the probability from.
  */
-void Model::CalculateProbabilities(TrainingData &training_data, std::string &model_file_name) {
+void Model::CalculateProbabilities(TrainingData& training_data, std::string& model_file_name) {
 
     CalculateClassFrequencyAndProbabilities(training_data);
 
@@ -70,7 +70,7 @@ void Model::CalculateProbabilities(TrainingData &training_data, std::string &mod
  * @param training_data the data to calculate class frequency from.
  * @param label_frequencies the map to populate.
  */
-void Model::CalculateClassFrequencyAndProbabilities(TrainingData &training_data) {
+void Model::CalculateClassFrequencyAndProbabilities(TrainingData& training_data) {
 
     std::vector<int> training_labels = training_data.GetTrainingImageLabelVector();
 
@@ -101,7 +101,7 @@ double Model::GetSpecificProbability(int i, int j, int k) {
  *
  * @param test_data the test data to calculate all the posterior probabilities of.
  */
-void Model::CalculateProbabilitiesOfTestData(TestData &test_data) {
+void Model::CalculateProbabilitiesOfTestData(TestData& test_data) {
 
     // Iterate through each Image Data object.
     for (auto& image : test_data.GetTestImageDataVector()) {
@@ -140,7 +140,7 @@ void Model::CalculateProbabilitiesOfTestData(TestData &test_data) {
  *
  * @param file_name the file to load to.
  */
-void Model::LoadProbabilitiesToFile(std::string &file_name) {
+void Model::LoadProbabilitiesToFile(std::string& file_name) {
 
     std::ofstream model_file(file_name);
 
@@ -165,7 +165,7 @@ void Model::LoadProbabilitiesToFile(std::string &file_name) {
  *
  * @param file_name the file to load from.
  */
-void Model::LoadProbabilitiesFromFile(std::string &file_name) {
+void Model::LoadProbabilitiesFromFile(std::string& file_name) {
 
     std::ifstream model_file(file_name);
 

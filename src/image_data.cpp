@@ -48,5 +48,13 @@ int ImageData::GetClassWithHighestProbabilityFromPosteriors() {
     return best_class;
 }
 
+/** Retrieves the posterior probabilities map.
+ *
+ * @return the posterior probability map.
+ */
+std::map<int, double>& ImageData::GetPosteriorProbabilityMap() {
+    return posterior_probabilities_;
+}
+
 
 

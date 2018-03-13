@@ -27,9 +27,12 @@ public:
     explicit ImageData() = default;
 
     void AddToFeatureVector(bool feature);
-    std::vector<bool>& GetFeatures();
     void AddMapOfPosteriorProbabilities(std::map<int, double> posterior_probabilities);
+
+    std::vector<bool>& GetFeatures();
     int GetClassWithHighestProbabilityFromPosteriors();
+    std::map<int, double>& GetPosteriorProbabilityMap();
+
 
 
 };
