@@ -22,6 +22,7 @@ class TestData {
     std::map<int,std::vector<int>> confusion_map_;
 
 public:
+
     void readTestDataFromFileToVector(std::string& file_name);
     void readTestLabelsFromFileToVector(std::string& file_name);
 
@@ -30,9 +31,11 @@ public:
     std::vector<int>& getClassifiedLabels();
 
     void populateClassifiedLabels();
-    void printConfusionMatrix();
     void populateConfusionMap();
     void populateImageLabelFrequencies();
+
+    void printConfusionMatrix();
+    void printClassifiedLabels();
 
 };
 

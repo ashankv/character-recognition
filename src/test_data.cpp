@@ -109,6 +109,8 @@ void TestData::printConfusionMatrix() {
     populateImageLabelFrequencies();
     populateConfusionMap();
 
+    std::cout << "CONFUSION MATRIX: Actual vs. Expected Percentages" << std::endl;
+
     for (int i = 0; i < NUMBER_OF_CLASSES; i++) {
         std::vector<int> confusion_vector = confusion_map_[i];
 
@@ -126,6 +128,22 @@ void TestData::printConfusionMatrix() {
 
         std::cout << std::endl;
     }
+
+}
+
+/** Prints each classified label next to their corresponding test label.
+ *
+ */
+void TestData::printClassifiedLabels() {
+
+    std::cout << "Classified Labels vs. Actual Labels" << std::endl;
+    std::cout << std::endl;
+
+    for (int i = 0; i < classified_labels_.size(); i++) {
+        std::cout << classified_labels_[i] << "   |   " << image_labels_[i] << std::endl;
+    }
+
+    std::cout << std::endl;
 
 }
 
@@ -162,4 +180,6 @@ std::vector<ImageData>& TestData::getTestImageDataVector() {
 std::vector<int>& TestData::getTestImageLabelVector() {
     return image_labels_;
 }
+
+
 
