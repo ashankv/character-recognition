@@ -37,6 +37,8 @@ int main() {
     // Print classified labels and confusion matrix.
     test_data.PrintClassifiedLabels();
     test_data.PrintConfusionMatrix();
+    test_data.PrintHighestProbabilityImageForEachClass();
+    test_data.PrintLowestProbabilityImageForEachClass();
 
     return 0;
 }

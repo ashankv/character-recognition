@@ -133,6 +133,7 @@ void TestData::PrintConfusionMatrix() {
         }
 
         std::cout << std::endl;
+        std::cout << std::endl;
     }
 
 }
@@ -185,6 +186,69 @@ std::vector<ImageData>& TestData::GetTestImageDataVector() {
  */
 std::vector<int>& TestData::GetTestImageLabelVector() {
     return image_labels_;
+}
+
+/** Prints Test Images that have the highest probability of classification for each class.
+ *
+ */
+void TestData::PrintHighestProbabilityImageForEachClass() {
+
+    for (int i = 0; i < NUMBER_OF_CLASSES; i++) {
+
+        std::cout << "Class: " << i << std::endl;
+
+        double max_probability = BIG_NEGATIVE;
+        ImageData most_accurate_image;
+
+        for (auto image_data : image_data_vector_) {
+
+            std::map<int, double> posterior_probabilities = image_data.GetPosteriorProbabilityMap();
+
+            if (posterior_probabilities[i] > max_probability) {
+                max_probability = posterior_probabilities[i];
+                most_accurate_image = image_data;
+            }
+        }
+
+        std::cout << "Highest Value: " << max_probability << std::endl;
+        most_accurate_image.PrintImage();
+        std::cout << std::endl;
+        std::cout << "----------------" << std::endl;
+
+    }
+
+}
+
+/** Prints Test Images that have the lowest probability of classification for each class.
+ *
+ */
+void TestData::PrintLowestProbabilityImageForEachClass() {
+
+    std::cout << std::endl;
+
+    for (int i = 0; i < NUMBER_OF_CLASSES; i++) {
+
+        std::cout << "Class: " << i << std::endl;
+
+        double max_probability = 0.0;
+        ImageData most_accurate_image;
+
+        for (auto image_data : image_data_vector_) {
+
+            std::map<int, double> posterior_probabilities = image_data.GetPosteriorProbabilityMap();
+
+            if (posterior_probabilities[i] < max_probability) {
+                max_probability = posterior_probabilities[i];
+                most_accurate_image = image_data;
+            }
+        }
+
+        std::cout << "Lowest Value: " << max_probability << std::endl;
+        most_accurate_image.PrintImage();
+        std::cout << std::endl;
+
+    }
+
 }
 
 

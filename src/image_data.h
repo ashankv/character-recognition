@@ -9,7 +9,8 @@
 #include <vector>
 #include <map>
 
-const int SMALL_CONSTANT = -10000000;
+const int ROW_DIMENSION_OF_IMAGE = 28;
+const int BIG_NEGATIVE = -10000000;
 const int IMAGE_DIMENSION = 784;
 
 class ImageData {
@@ -32,6 +33,8 @@ public:
     std::vector<bool>& GetFeatures();
     int GetClassWithHighestProbabilityFromPosteriors();
     std::map<int, double>& GetPosteriorProbabilityMap();
+
+    void PrintImage();
 
 
 

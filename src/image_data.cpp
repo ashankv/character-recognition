@@ -37,7 +37,7 @@ void ImageData::AddMapOfPosteriorProbabilities(std::map<int, double> posterior_p
 int ImageData::GetClassWithHighestProbabilityFromPosteriors() {
 
     int best_class = 0;
-    double best_probability = SMALL_CONSTANT;
+    double best_probability = BIG_NEGATIVE;
 
     for (const auto& pair : posterior_probabilities_) {
         if (pair.second > best_probability) {
@@ -54,6 +54,28 @@ int ImageData::GetClassWithHighestProbabilityFromPosteriors() {
  */
 std::map<int, double>& ImageData::GetPosteriorProbabilityMap() {
     return posterior_probabilities_;
+}
+
+void ImageData::PrintImage() {
+
+    int count = 0;
+    for (int i = 0; i < features_.size(); i++) {
+
+        if (features_.at(i) == true) {
+            std::cout << "#";
+        } else {
+            std::cout << " ";
+        }
+
+        count++;
+
+        if (count == ROW_DIMENSION_OF_IMAGE) {
+            std::cout << std::endl;
+            count = 0;
+        }
+
+    }
+
 }
 
 

@@ -48,6 +48,9 @@ public:
     void PrintConfusionMatrix();
     void PrintClassifiedLabels();
 
+    void PrintHighestProbabilityImageForEachClass();
+    void PrintLowestProbabilityImageForEachClass();
+
 };
 
 
