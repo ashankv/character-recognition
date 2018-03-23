@@ -56,12 +56,15 @@ std::map<int, double>& ImageData::GetPosteriorProbabilityMap() {
     return posterior_probabilities_;
 }
 
+/** Prints the image based on the boolean feature values.
+ *
+ */
 void ImageData::PrintImage() {
 
     int count = 0;
     for (int i = 0; i < features_.size(); i++) {
 
-        if (features_.at(i) == true) {
+        if (features_.at(i)) {
             std::cout << "#";
         } else {
             std::cout << " ";

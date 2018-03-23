@@ -246,6 +246,7 @@ void TestData::PrintLowestProbabilityImageForEachClass() {
         std::cout << "Lowest Value: " << max_probability << std::endl;
         most_accurate_image.PrintImage();
         std::cout << std::endl;
+        std::cout << "----------------" << std::endl;
 
     }
 

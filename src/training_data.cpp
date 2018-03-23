@@ -10,7 +10,7 @@
  *
  * @param file_name the file name to be read from.
  */
-void TrainingData::ReadTrainingDataFromFileToVector(std::string &file_name) {
+void TrainingData::ReadTrainingDataFromFileToVector(std::string& file_name) {
 
     std::ifstream file;
 
@@ -50,7 +50,7 @@ void TrainingData::ReadTrainingDataFromFileToVector(std::string &file_name) {
  *
  * @param file_name the file name to be read from.
  */
-void TrainingData::ReadTrainingLabelsFromFileToVector(std::string &file_name) {
+void TrainingData::ReadTrainingLabelsFromFileToVector(std::string& file_name) {
 
     std::ifstream file(file_name);
 
